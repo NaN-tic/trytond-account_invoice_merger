@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- This file is part of the account_invoice_merger module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full
+copyright notices and license terms. -->
+<form string="Merge Invoices" col="2">
+    <image name="tryton-dialog-information" xexpand="0" xfill="0"/>
+    <group col="2" id="merge_invoices">
+        <label string="Are you sure to merge these invoices?"
+            id="merge" colspan="2"
+            yalign="0.0" xalign="0.0" xexpand="1"/>
+            <field name="invoices"/>
+    </group>
+</form>

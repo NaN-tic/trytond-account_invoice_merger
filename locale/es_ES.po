@@ -1,0 +1,31 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "model:ir.action,name:act_all_in_invoice"
+msgid "Supplier Invoices"
+msgstr "Facturas de proveedor"
+
+msgctxt "model:ir.action,name:act_all_out_invoice"
+msgid "Customer Invoices"
+msgstr "Facturas de cliente"
+
+msgctxt "model:ir.action,name:merger"
+msgid "Merge Invoices"
+msgstr "Fusionar facturas"
+
+msgctxt "model:ir.ui.menu,name:menu_invoice_in_invoice_form"
+msgid "Supplier Invoices"
+msgstr "Facturas de proveedor"
+
+msgctxt "model:ir.ui.menu,name:menu_invoice_out_invoice_form"
+msgid "Customer Invoices"
+msgstr "Facturas de cliente"
+
+msgctxt "view:account.invoice.merge.start:"
+msgid "Are you sure to merge these invoices?"
+msgstr "¿Está seguro de querer fusionar estas facturas?"
+
+msgctxt "view:account.invoice.merge.start:"
+msgid "Merge Invoices"
+msgstr "Fusionar facturas"
