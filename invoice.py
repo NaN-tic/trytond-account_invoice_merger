@@ -112,8 +112,12 @@ class InvoiceMerge(Wizard):
                 new_invoice = Invoice.copy([invoice],
                     default=default)[0]
 
-            InvoiceLine.write(invoice.lines, {'invoice': new_invoice})
-            InvoiceTax.write(invoice.taxes, {'invoice': new_invoice})
+            if invoice.lines:
+                InvoiceLine.write([line for line in invoice.lines],
+                        {'invoice': new_invoice})
+            if invoice.taxes:
+                InvoiceTax.write([tax for tax in invoice.taxes], 
+                        {'invoice': new_invoice})
             if invoice.type == 'out_invoice':
                 sale_invoices = SaleInvoice.search([
                         ('invoice', '=', invoice.id)])
@@ -123,6 +127,7 @@ class InvoiceMerge(Wizard):
                         ('invoice', '=', invoice.id)])
                 PurchaseInvoice.write(puchase_invoices,
                         {'invoice': new_invoice})
+
         Invoice.write(invoices, {'state': 'cancel'})
         Invoice.delete(invoices)
 
