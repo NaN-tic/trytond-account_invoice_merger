@@ -2,6 +2,49 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "error:account.invoice.merge:"
+msgid ""
+"You can not merge the invoice %s because its state is different of draft."
+msgstr "No puede fusionar la factura \"%s\" por que el estado es en borrador."
+
+msgctxt "error:account.invoice.merge:"
+msgid ""
+"You can not merge these invoices because its customers/suppliers are "
+"different."
+msgstr ""
+"No puede fusionar estas facturas por que el cliente/proveedor son "
+"diferentes."
+
+msgctxt "error:account.invoice.merge:"
+msgid ""
+"You can not merge these invoices because its invoice addresses are "
+"different."
+msgstr ""
+"No puede fusionar estas facturas por que la dirección de facturación son "
+"diferentes."
+
+msgctxt "error:account.invoice.merge:"
+msgid "You can not merge these invoices because its journals are different."
+msgstr "No puede fusionar estas facturas por que los diarios son diferentes."
+
+msgctxt "error:account.invoice.merge:"
+msgid ""
+"You can not merge these invoices because its payment term are different."
+msgstr ""
+"No puede fusionar estas facturas por que el plazo de pago son diferentes."
+
+msgctxt "field:account.invoice.merge.start,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.invoice.merge.start,invoices:"
+msgid "Invoices"
+msgstr "Facturas"
+
+msgctxt "model:account.invoice.merge.start,name:"
+msgid "Invoice Merge Start"
+msgstr "Inicio fusionar facturas"
+
 msgctxt "model:ir.action,name:act_all_in_invoice"
 msgid "Supplier Invoices"
 msgstr "Facturas de proveedor"
@@ -29,3 +72,11 @@ msgstr "¿Está seguro de querer fusionar estas facturas?"
 msgctxt "view:account.invoice.merge.start:"
 msgid "Merge Invoices"
 msgstr "Fusionar facturas"
+
+msgctxt "wizard_button:account.invoice.merge,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:account.invoice.merge,start,merge:"
+msgid "Merge"
+msgstr "Fusionar"
