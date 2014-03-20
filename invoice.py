@@ -39,8 +39,6 @@ class InvoiceMerge(Wizard):
                     'because its journals are different.'),
                 'different_payment_term': ('You can not merge these invoices '
                     'because its payment term are different.'),
-                'sale_shipment_state': ('Sale "%(sale)s" shipment state is waiting. '
-                    'You need to delivery shipment before merge invoices.'),
                 })
 
     def default_start(self, fields):
@@ -59,14 +57,12 @@ class InvoiceMerge(Wizard):
         Invoice = pool.get('account.invoice')
         InvoiceLine = pool.get('account.invoice.line')
         InvoiceTax = pool.get('account.invoice.tax')
-        Sale = pool.get('sale.sale')
         SaleInvoice = pool.get('sale.sale-account.invoice')
         PurchaseInvoice = pool.get('purchase.purchase-account.invoice')
         invoices = Invoice.browse(Transaction().context['active_ids'])
         new_invoice = False
         vals = {}
         description = ''
-        sales = []
 
         for invoice in invoices:
             if invoice.state != 'draft':
@@ -96,16 +92,6 @@ class InvoiceMerge(Wizard):
             elif vals['payment_term'] != invoice.payment_term:
                 self.raise_user_error('different_payment_term',
                     (invoice.rec_name,))
-
-            for line in invoice.lines:
-                origin = line.origin
-                if origin.__name__ == 'sale.line':
-                    sale = origin.sale
-                    if sale.shipment_state == 'waiting':
-                        self.raise_user_error('sale_shipment_state', {
-                                'sale': sale.rec_name,
-                                })
-                    sales.append(sale)
 
             description += '%s ' % invoice.description
 
@@ -141,9 +127,6 @@ class InvoiceMerge(Wizard):
                         ('invoice', '=', invoice.id)])
                 PurchaseInvoice.write(puchase_invoices,
                         {'invoice': new_invoice})
-
-        if sales:
-            Sale.write(sales, {'invoice_merger': True})
 
         Invoice.write(invoices, {'state': 'cancel'})
         Invoice.delete(invoices)

@@ -4,14 +4,6 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "error:account.invoice.merge:"
 msgid ""
-"Sale \"%(sale)s\" shipment state is waiting. You need to delivery shipment "
-"before merge invoices."
-msgstr ""
-"El estado de envío del pedido \"%(sale)s\" está esperando. Debe enviar "
-"primero los albaranes antes de fusionar facturas."
-
-msgctxt "error:account.invoice.merge:"
-msgid ""
 "You can not merge the invoice %s because its state is different of draft."
 msgstr "No puede fusionar la factura \"%s\" por que el estado es en borrador."
 
@@ -48,10 +40,6 @@ msgstr "ID"
 msgctxt "field:account.invoice.merge.start,invoices:"
 msgid "Invoices"
 msgstr "Facturas"
-
-msgctxt "field:sale.sale,invoice_merger:"
-msgid "Invoice Merged"
-msgstr "Facturas fusionadas"
 
 msgctxt "model:account.invoice.merge.start,name:"
 msgid "Invoice Merge Start"
