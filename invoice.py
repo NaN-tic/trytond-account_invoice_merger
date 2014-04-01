@@ -30,15 +30,15 @@ class InvoiceMerge(Wizard):
         super(InvoiceMerge, cls).__setup__()
         cls._error_messages.update({
                 'state_not_draft': ('You can not merge the invoice %s because '
-                    'its state is different of draft.'),
+                    'its state is different from draft.'),
                 'different_parties': ('You can not merge these invoices '
-                    'because its customers/suppliers are different.'),
+                    'because their customers/suppliers are different.'),
                 'different_parties_address': ('You can not merge these '
-                    'invoices because its invoice addresses are different.'),
+                    'invoices because their invoice addresses are different.'),
                 'different_journals': ('You can not merge these invoices '
-                    'because its journals are different.'),
+                    'because their journals are different.'),
                 'different_payment_term': ('You can not merge these invoices '
-                    'because its payment term are different.'),
+                    'because their payment terms are different.'),
                 })
 
     def default_start(self, fields):
