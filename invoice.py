@@ -56,9 +56,12 @@ class InvoiceMerge(Wizard):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         InvoiceLine = pool.get('account.invoice.line')
-        InvoiceTax = pool.get('account.invoice.tax')
-        SaleInvoice = pool.get('sale.sale-account.invoice')
-        PurchaseInvoice = pool.get('purchase.purchase-account.invoice')
+        objects = pool.object_name_list()
+        SaleInvoice = (pool.get('sale.sale-account.invoice')
+            if 'sale.sale-account.invoice' in objects else None)
+        PurchaseInvoice = (pool.get('purchase.purchase-account.invoice')
+            if 'purchase.purchase-account.invoice' in objects else None)
+        
         invoices = Invoice.browse(Transaction().context['active_ids'])
         new_invoice = False
         vals = {}
@@ -115,21 +118,21 @@ class InvoiceMerge(Wizard):
             if invoice.lines:
                 InvoiceLine.write([line for line in invoice.lines],
                         {'invoice': new_invoice})
-            if invoice.taxes:
-                InvoiceTax.write([tax for tax in invoice.taxes], 
-                        {'invoice': new_invoice})
-            if invoice.type == 'out_invoice':
+
+            if invoice.type == 'out_invoice' and SaleInvoice:
                 sale_invoices = SaleInvoice.search([
                         ('invoice', '=', invoice.id)])
                 SaleInvoice.write(sale_invoices, {'invoice': new_invoice})
-            else:
+            if invoice.type == 'in_invoice' and PurchaseInvoice:
                 puchase_invoices = PurchaseInvoice.search([
                         ('invoice', '=', invoice.id)])
                 PurchaseInvoice.write(puchase_invoices,
                         {'invoice': new_invoice})
 
-        Invoice.write(invoices, {'state': 'cancel'})
-        Invoice.delete(invoices)
+        with Transaction().set_user(0, set_context=True):
+            Invoice.update_taxes([new_invoice])
+            Invoice.write(invoices, {'state': 'cancel'})
+            Invoice.delete(invoices)
 
         data = {'res_id': [new_invoice.id]}
         action['views'].reverse()
