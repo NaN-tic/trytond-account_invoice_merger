@@ -42,15 +42,10 @@ class InvoiceMerge(Wizard):
                 })
 
     def default_start(self, fields):
-        Invoice = Pool().get('account.invoice')
-        default = {}
-        for invoice in Invoice.browse(Transaction().context['active_ids']):
-            if 'invoices' not in default:
-                default['invoices'] = '%s' % invoice.id
-            else:
-                default['invoices'] = '%s, %s' % (
-                    default['invoices'], invoice.id)
-        return default
+        return {
+            'invoices': ', '.join([str(id)
+                 for id in Transaction().context['active_ids']])
+            }
 
     def do_merge(self, action):
         pool = Pool()
