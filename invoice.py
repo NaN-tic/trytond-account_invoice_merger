@@ -51,12 +51,7 @@ class InvoiceMerge(Wizard):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         InvoiceLine = pool.get('account.invoice.line')
-        objects = pool.object_name_list()
-        SaleInvoice = (pool.get('sale.sale-account.invoice')
-            if 'sale.sale-account.invoice' in objects else None)
-        PurchaseInvoice = (pool.get('purchase.purchase-account.invoice')
-            if 'purchase.purchase-account.invoice' in objects else None)
-        
+
         invoices = Invoice.browse(Transaction().context['active_ids'])
         new_invoice = False
         vals = {}
@@ -112,16 +107,6 @@ class InvoiceMerge(Wizard):
 
             if invoice.lines:
                 InvoiceLine.write([line for line in invoice.lines],
-                        {'invoice': new_invoice})
-
-            if invoice.type == 'out_invoice' and SaleInvoice:
-                sale_invoices = SaleInvoice.search([
-                        ('invoice', '=', invoice.id)])
-                SaleInvoice.write(sale_invoices, {'invoice': new_invoice})
-            if invoice.type == 'in_invoice' and PurchaseInvoice:
-                puchase_invoices = PurchaseInvoice.search([
-                        ('invoice', '=', invoice.id)])
-                PurchaseInvoice.write(puchase_invoices,
                         {'invoice': new_invoice})
 
         with Transaction().set_user(0, set_context=True):
