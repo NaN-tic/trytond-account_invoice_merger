@@ -7,7 +7,9 @@ copyright notices and license terms. -->
         <record model="ir.action.act_window" id="act_all_out_invoice">
             <field name="name">Customer Invoices to merge</field>
             <field name="res_model">account.invoice</field>
-            <field name="domain">[('state', '=', 'draft'), ('type', 'in', ('out_invoice', 'out_credit_note'))]</field>
+            <field name="domain"
+                eval="[('state', '=', 'draft'), ('type', 'in', ('out_invoice', 'out_credit_note'))]"
+                pyson="1"/>
             <field name="search_value"></field>
         </record>
         <record model="ir.action.act_window.view" id="act_all_out_invoice_view1">
@@ -28,7 +30,9 @@ copyright notices and license terms. -->
         <record model="ir.action.act_window" id="act_all_in_invoice">
             <field name="name">Supplier Invoices to merge</field>
             <field name="res_model">account.invoice</field>
-            <field name="domain">[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_credit_note'))]</field>
+            <field name="domain"
+                eval="[('state', '=', 'draft'), ('type', 'in', ('in_invoice', 'in_credit_note'))]"
+                pyson="1"/>
             <field name="search_value"></field>
         </record>
         <record model="ir.action.act_window.view" id="act_all_in_invoice_view1">
