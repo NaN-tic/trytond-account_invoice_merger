@@ -88,14 +88,6 @@ class InvoiceMerge(Wizard):
 
             description += '%s ' % invoice.description
 
-            if invoice.type in ('out_credit_note', 'in_credit_note'):
-                for line in invoice.lines:
-                    InvoiceLine.write([line], {'quantity': -1 * line.quantity})
-                if invoice.type == 'out_credit_note':
-                    invoice.type = 'out_invoice'
-                else:
-                    invoice.type = 'in_invoice'
-
             if not new_invoice:
                 default = {
                     'lines': None,
