@@ -14,6 +14,9 @@ except ImportError:
 
 MODULE2PREFIX = {}
 
+MODULE = 'account_invoice_merger'
+PREFIX = 'trytonzz'
+
 
 def read(fname):
     return io.open(
@@ -39,7 +42,6 @@ version = info.get('version', '0.0.1')
 major_version, minor_version, _ = version.split('.', 2)
 major_version = int(major_version)
 minor_version = int(minor_version)
-name = 'trytonzz_account_invoice_merger'
 download_url = 'https://bitbucket.org/zikzakmedia/trytond-account_invoice_merger'
 
 requires = []
@@ -55,7 +57,7 @@ if minor_version % 2:
     # Add development index for testing with proteus
     dependency_links.append('https://trydevpi.tryton.org/')
 
-setup(name=name,
+setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
     description='Tryton Account Invoice Merger Module',
     long_description=read('README'),
@@ -66,12 +68,12 @@ setup(name=name,
     keywords='',
     package_dir={'trytond.modules.account_invoice_merger': '.'},
     packages=[
-        'trytond.modules.account_invoice_merger',
-        'trytond.modules.account_invoice_merger.tests',
+        'trytond.modules.%s' % MODULE,
+        'trytond.modules.%s.tests' % MODULE,
         ],
     package_data={
-        'trytond.modules.account_invoice_merger': (info.get('xml', [])
-            + ['tryton.cfg', 'view/*.xml', 'locale/*.po', '*.odt',
+        'trytond.modules.%s' % MODULE: (info.get('xml', [])
+            + ['tryton.cfg', 'view/*.xml', 'view/*/*.xml', 'locale/*.po', '*.odt',
                 'icons/*.svg', 'tests/*.rst']),
         },
     classifiers=[
@@ -110,8 +112,8 @@ setup(name=name,
     zip_safe=False,
     entry_points="""
     [trytond.modules]
-    account_invoice_merger = trytond.modules.account_invoice_merger
-    """,
+    %s = trytond.modules.%s
+    """ % (MODULE, MODULE),
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
     tests_require=tests_require,
