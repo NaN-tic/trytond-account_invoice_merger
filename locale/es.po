@@ -33,6 +33,12 @@ msgid ""
 msgstr ""
 "No puede fusionar estas facturas porqué sus plazos de pago son diferentes."
 
+msgctxt "error:account.invoice.merge:"
+msgid ""
+"You can not merge these invoices because their bank accounts are different."
+msgstr ""
+"No puede fusionar estas facturas porqué sus cuentas bancarias son diferentes."
+
 msgctxt "field:account.invoice.merge.start,id:"
 msgid "ID"
 msgstr "ID"

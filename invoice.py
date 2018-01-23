@@ -39,6 +39,8 @@ class InvoiceMerge(Wizard):
                     'because their journals are different.'),
                 'different_payment_term': ('You can not merge these invoices '
                     'because their payment terms are different.'),
+                'different_bank_account': ('You can not merge these invoices '
+                    'because their bank accounts are different.'),
                 })
 
     def default_start(self, fields):
@@ -62,7 +64,7 @@ class InvoiceMerge(Wizard):
                 self.raise_user_error('state_not_draft',
                     (invoice.rec_name,))
 
-            if not 'party' in vals:
+            if 'party' not in vals:
                 vals['party'] = invoice.party
             elif vals['party'] != invoice.party:
                 self.raise_user_error('different_parties',
@@ -85,6 +87,13 @@ class InvoiceMerge(Wizard):
             elif vals['payment_term'] != invoice.payment_term:
                 self.raise_user_error('different_payment_term',
                     (invoice.rec_name,))
+            
+            bank_account = getattr(invoice, 'bank_account', None)
+            if 'bank_account' not in vals:
+                vals['bank_account'] = bank_account
+            elif vals['bank_account'] != bank_account:
+                self.raise_user_error('different_bank_account',
+                                      (invoice.rec_name,))
 
             description += '%s ' % invoice.description
 
@@ -92,6 +101,7 @@ class InvoiceMerge(Wizard):
                 default = {
                     'lines': None,
                     'taxes': None,
+                    'bank_account': None,
                     'type': invoice.type,
                     }
                 new_invoice = Invoice.copy([invoice],
@@ -101,9 +111,15 @@ class InvoiceMerge(Wizard):
                 InvoiceLine.write([line for line in invoice.lines],
                         {'invoice': new_invoice})
 
+        to_write = {'state': 'cancel'}
+        if vals['bank_account']:
+            to_write['bank_account'] = None
+            new_invoice.bank_account = vals['bank_account']
+            new_invoice.save()
+
         with Transaction().set_user(0, set_context=True):
             Invoice.update_taxes([new_invoice])
-            Invoice.write(invoices, {'state': 'cancel'})
+            Invoice.write(invoices, to_write)
             Invoice.delete(invoices)
 
         data = {'res_id': [new_invoice.id]}
