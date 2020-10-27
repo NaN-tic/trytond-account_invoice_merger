@@ -40,6 +40,9 @@ class InvoiceMerge(Wizard):
 
         invoices = Invoice.browse(Transaction().context['active_ids'])
 
+        if not len(invoices) > 1:
+            return
+
         parties = set()
         types = set()
         invoice_address = set()
