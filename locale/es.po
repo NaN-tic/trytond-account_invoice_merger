@@ -73,10 +73,10 @@ msgstr ""
 
 msgctxt "model:ir.message,text:msg_state_not_draft"
 msgid ""
-"You can not merge invoices \"%(invoices)s\" because its state is different "
+"You can not merge the invoice \"%(invoice)s\" because its state is different "
 "from draft."
 msgstr ""
-"No puede fusionar las facturas \"%(invoices)s\" porqué su estado no es "
+"No puede fusionar la factura \"%(invoice)s\" porqué su estado no es "
 "borrador."
 
 msgctxt "model:ir.ui.menu,name:"

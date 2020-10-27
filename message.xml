@@ -4,7 +4,10 @@ this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data grouped="1">
         <record model="ir.message" id="msg_state_not_draft">
-            <field name="text">You can not merge invoices "%(invoices)s" because its state is different from draft.</field>
+            <field name="text">You can not merge the invoice "%(invoice)s" because its state is different from draft.</field>
+        </record>
+        <record model="ir.message" id="msg_has_number">
+            <field name="text">You can not merge the invoice "%(invoice)s" because has a number.</field>
         </record>
         <record model="ir.message" id="msg_different_parties">
             <field name="text">You can not merge invoices "%(invoices)s" because their customers/suppliers are different.</field>
@@ -20,9 +23,6 @@ this repository contains the full copyright notices and license terms. -->
         </record>
         <record model="ir.message" id="msg_different_bank_account">
             <field name="text">You can not merge invoices "%(invoices)s" because their bank accounts are different.</field>
-        </record>
-        <record model="ir.message" id="msg_msg_has_number">
-            <field name="text">You can not merge the invoice "%(invoice)s" because has a number.</field>
         </record>
         <record model="ir.message" id="msg_different_types">
             <field name="text">You can not merge invoices "%(invoices)s" because their type ara different.</field>
