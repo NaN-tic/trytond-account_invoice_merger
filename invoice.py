@@ -67,8 +67,10 @@ class InvoiceMerge(Wizard):
             bank_account = getattr(invoice, 'bank_account', None)
             if bank_account:
                 bank_accounts.add(bank_account)
-            descriptions.append(invoice.description)
-            references.append(invoice.reference)
+            if invoice.description:
+                descriptions.append(invoice.description)
+            if invoice.reference:
+                references.append(invoice.reference)
 
         if len(types) > 1:
             raise UserError(gettext('account_invoice_merger.msg_different_types',
@@ -92,8 +94,13 @@ class InvoiceMerge(Wizard):
         main_invoice, = invoices[:1]
         other_invoices = invoices[1:]
 
-        invoice.description = ', '.join(descriptions)
-        invoice.reference = ', '.join(descriptions)
+        if descriptions:
+            main_invoice.description = ', '.join(descriptions)
+        if references:
+            main_invoice.reference = ', '.join(references)
+        if descriptions or references:
+            main_invoice.save()
+
         InvoiceLine.write([line for i in other_invoices for line in i.lines],
                 {'invoice': main_invoice})
 
