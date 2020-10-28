@@ -159,7 +159,10 @@ Create invoice::
 
 Copy invoices::
 
-    >>> _ = Invoice.copy([invoice, invoice], config.context)
+    >>> invoice2, invoice3 = Invoice.copy([invoice, invoice], config.context)
+    >>> invoice2 = Invoice(invoice2)
+    >>> invoice2.reference = 'TEST'
+    >>> invoice2.save()
     >>> invoices = Invoice.find([])
     >>> len(invoices) == 3
     True
@@ -180,4 +183,6 @@ Merge invoices::
     >>> len([line for i in cancelled for line in i.lines]) == 0
     True
     >>> len([line for i in draft for line in i.lines]) == 6
+    True
+    >>> draft[0].reference == invoice2.reference
     True
