@@ -174,7 +174,7 @@ Merge invoices::
     >>> invoice_merger = Wizard('account.invoice.merge', invoices)
     >>> invoice_merger.execute('merge')
     >>> invoices = Invoice.find([])
-    >>> cancelled = [i for i in invoices if i.state == 'cancel']
+    >>> cancelled = [i for i in invoices if i.state == 'cancelled']
     >>> draft = [i for i in invoices if i.state == 'draft']
     >>> len(cancelled) == 2
     True
