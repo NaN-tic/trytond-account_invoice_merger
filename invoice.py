@@ -105,7 +105,7 @@ class InvoiceMerge(Wizard):
                 {'invoice': main_invoice})
 
         with Transaction().set_user(0, set_context=True):
-            Invoice.update_taxes([main_invoice])
+            Invoice.update_taxes([main_invoice] + other_invoices)
             Invoice.cancel(other_invoices)
             # TODO sao can not reload records
             # Invoice.delete(other_invoices)
