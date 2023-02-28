@@ -166,7 +166,7 @@ Copy invoices::
     >>> invoices = Invoice.find([])
     >>> len(invoices) == 3
     True
-    >>> len([line for i in invoices for line in invoice.lines]) == 6
+    >>> len([line for i in invoices for line in i.lines]) == 6
     True
 
 Merge invoices::
