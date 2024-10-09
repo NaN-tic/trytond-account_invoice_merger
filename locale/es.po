@@ -10,10 +10,6 @@ msgctxt "model:account.invoice.merge.start,name:"
 msgid "Invoice Merge Start"
 msgstr "Inicio fusión facturas"
 
-msgctxt "model:ir.action,name:"
-msgid "Supplier Invoices to merge"
-msgstr "Facturas de proveedor a fusionar"
-
 msgctxt "model:ir.action,name:merger"
 msgid "Merge Invoices"
 msgstr "Fusionar facturas"
