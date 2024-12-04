@@ -75,10 +75,6 @@ msgstr ""
 "No puede fusionar la factura \"%(invoice)s\" porqué su estado no es "
 "borrador."
 
-msgctxt "model:ir.ui.menu,name:"
-msgid "Supplier Invoices to merge"
-msgstr "Facturas de proveedor a fusionar"
-
 msgctxt "view:account.invoice.merge.start:"
 msgid "Are you sure to merge these invoices?"
 msgstr "¿Desea fusionar estas facturas?"
