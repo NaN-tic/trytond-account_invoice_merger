@@ -3,7 +3,7 @@
 # copyright notices and license terms.
 from trytond.model import ModelView, fields
 from trytond.pool import Pool
-from trytond.transaction import Transaction
+from trytond.transaction import Transaction, without_check_access
 from trytond.wizard import Button, StateAction, StateView, Wizard
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
@@ -101,7 +101,9 @@ class InvoiceMerge(Wizard):
         if descriptions or references:
             main_invoice.save()
 
-        InvoiceLine.write([line for i in other_invoices for line in i.lines],
+        with without_check_access():
+            InvoiceLine.write(
+                [line for i in other_invoices for line in i.lines],
                 {'invoice': main_invoice})
 
         with Transaction().set_user(0, set_context=True):
